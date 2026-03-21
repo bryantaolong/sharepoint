@@ -1,133 +1,133 @@
 # SharePoint
 
-一款简洁的本地推文分享应用，类似 Twitter 的使用体验，数据完全存储在本地。
+A lightweight local tweet-sharing app with a Twitter-like experience. All data is stored locally on your device.
 
 <p align="center">
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" width="100" alt="App Icon">
 </p>
 
-## ✨ 功能特性
+## ✨ Features
 
-- 📝 **发布推文** - 支持文字、图片（最多4张）、链接
-- 🖼️ **图片展示** - 网格布局展示图片，支持 1-4 张自适应布局
-- 💬 **评论系统** - 为每条推文添加评论
-- ✏️ **编辑推文** - 随时修改已发布的内容
-- 🗑️ **删除推文** - 删除时自动清理关联图片
-- 🔖 **筛选查看** - 全部推文 / 含图推文切换
-- 🎨 **Twitter 风格 UI** - 熟悉的蓝鸟界面设计
-- 🔒 **数据隐私** - 所有数据存储在本地，卸载即清除
+- 📝 **Post Tweets** - Support text, images (up to 4), and links
+- 🖼️ **Image Gallery** - Grid layout with adaptive 1-4 image display
+- 💬 **Comments** - Add comments to any tweet
+- ✏️ **Edit Tweets** - Modify published content anytime
+- 🗑️ **Delete Tweets** - Automatic cleanup of associated images
+- 🔖 **Filter View** - Toggle between all tweets and image-only tweets
+- 🎨 **Twitter-style UI** - Familiar blue bird interface design
+- 🔒 **Data Privacy** - All data stored locally, cleared upon uninstall
 
-## 📱 截图
+## 📱 Screenshots
 
-> （欢迎添加应用截图）
+> (Screenshots are welcome to be added)
 
-## 🏗️ 技术架构
+## 🏗️ Tech Stack
 
-| 层级 | 技术 |
-|------|------|
+| Layer | Technology |
+|-------|------------|
 | **UI** | Android XML Layout + Material Design Components |
-| **架构模式** | MVVM (Model-View-ViewModel) |
-| **数据库** | Room (SQLite) |
-| **图片加载** | Coil |
-| **异步处理** | Kotlin Coroutines |
-| **依赖注入** | 手动注入（ViewModel + Repository） |
+| **Architecture** | MVVM (Model-View-ViewModel) |
+| **Database** | Room (SQLite) |
+| **Image Loading** | Coil |
+| **Async Processing** | Kotlin Coroutines |
+| **Dependency Injection** | Manual Injection (ViewModel + Repository) |
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 app/src/main/java/com/bryan/sharepoint/
 ├── data/
-│   ├── dao/              # Room 数据访问对象
-│   ├── database/         # 数据库配置
-│   ├── entity/           # 数据实体 (Tweet, Comment)
-│   └── repository/       # 数据仓库层
+│   ├── dao/              # Room Data Access Objects
+│   ├── database/         # Database configuration
+│   ├── entity/           # Data entities (Tweet, Comment)
+│   └── repository/       # Repository layer
 ├── ui/
-│   ├── adapter/          # RecyclerView 适配器
-│   ├── fragment/         # 对话框 Fragment
-│   └── viewmodel/        # ViewModel 层
-├── util/                 # 工具类 (图片存储)
-└── MainActivity.kt       # 主界面
+│   ├── adapter/          # RecyclerView adapters
+│   ├── fragment/         # Dialog Fragments
+│   └── viewmodel/        # ViewModel layer
+├── util/                 # Utility classes (image storage)
+└── MainActivity.kt       # Main activity
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Requirements
 
-- Android Studio Hedgehog (2023.1.1) 或更高版本
+- Android Studio Hedgehog (2023.1.1) or higher
 - Android SDK 34+
 - JDK 11+
 
-### 构建运行
+### Build & Run
 
 ```bash
-# 克隆项目
-git clone <repository-url>
-cd share-point
+# Clone the repository
+git clone "https://github.com/bryantaolong/sharepoint.git"
+cd sharepoint
 
-# 使用 Gradle 构建
+# Build with Gradle
 ./gradlew assembleDebug
 
-# 或直接在 Android Studio 中运行
+# Or run directly in Android Studio
 ```
 
-## 📦 数据存储
+## 📦 Data Storage
 
-| 数据类型 | 存储位置 | 卸载时 |
-|---------|---------|--------|
-| 推文 & 评论 | Room 数据库 | ✅ 自动清除 |
-| 图片文件 | 应用私有目录 (`files/images/`) | ✅ 自动清除 |
-| 缓存 | 应用缓存目录 | ✅ 自动清除 |
+| Data Type | Storage Location | On Uninstall |
+|-----------|------------------|--------------|
+| Tweets & Comments | Room Database | ✅ Auto-cleared |
+| Image Files | App private directory (`files/images/`) | ✅ Auto-cleared |
+| Cache | App cache directory | ✅ Auto-cleared |
 
-### 图片存储说明
+### Image Storage Notes
 
-- 用户从相册选择的图片会**复制**到应用私有目录
-- 原相册图片**不受影响**
-- 删除推文时会自动清理关联图片
-- 卸载应用后所有图片被彻底删除
+- Images selected from the gallery are **copied** to the app's private directory
+- Original gallery images **remain unaffected**
+- Associated images are automatically cleaned up when deleting tweets
+- All images are permanently deleted when the app is uninstalled
 
-## 🛠️ 技术细节
+## 🛠️ Technical Details
 
-### 数据库模型
+### Database Schema
 
 ```kotlin
 @Entity(tableName = "tweets")
 data class Tweet(
-    val content: String,      // 推文内容
-    val images: String,       // JSON 数组格式的图片路径
-    val link: String,         // 链接
-    val createdAt: Long,      // 创建时间
-    val updatedAt: Long       // 更新时间
+    val content: String,      // Tweet content
+    val images: String,       // Image paths in JSON array format
+    val link: String,         // Link URL
+    val createdAt: Long,      // Creation timestamp
+    val updatedAt: Long       // Last update timestamp
 )
 
 @Entity(tableName = "comments")
 data class Comment(
-    val tweetId: Long,        // 关联推文ID
-    val content: String,      // 评论内容
-    val createdAt: Long       // 创建时间
+    val tweetId: Long,        // Associated tweet ID
+    val content: String,      // Comment content
+    val createdAt: Long       // Creation timestamp
 )
 ```
 
-### 图片处理流程
+### Image Processing Flow
 
-1. 用户选择图片 → 2. 复制到私有目录 → 3. 保存路径到数据库 → 4. 加载时从私有目录读取
+1. User selects images → 2. Copy to private directory → 3. Save paths to database → 4. Load from private directory
 
-## 📋 权限说明
+## 📋 Permissions
 
 ```xml
-<!-- 读取相册图片（Android 13+） -->
+<!-- Read gallery images (Android 13+) -->
 <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-<!-- Android 12 及以下兼容 -->
+<!-- Android 12 and below compatibility -->
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 ```
 
-**注意**：应用不需要写入外部存储权限，因为图片存储在私有目录。
+**Note**: The app does not require write external storage permission, as images are stored in the private directory.
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-## 📄 许可证
+## 📄 License
 
 MIT License
 
